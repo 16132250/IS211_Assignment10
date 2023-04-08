@@ -1,4 +1,5 @@
 import sqlite3
+
 def insert_data():
     try:
         with sqlite3.connect('pets.db') as con:

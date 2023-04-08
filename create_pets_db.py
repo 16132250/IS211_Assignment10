@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def create_pets_db():
 
     try:

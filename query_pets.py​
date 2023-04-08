@@ -22,7 +22,12 @@ def get_input():
     try:
         with sqlite3.connect('pets.db') as con:
             while True:
-                person_id = int(input("Enter person's ID number (enter -1 to exit): "))
+                try:
+                    person_id = int(input("Enter person's ID number (enter -1 to exit): "))
+                except ValueError:
+                    print("Please enter a numeric value.")
+                    continue
+
                 if person_id == -1:
                     break
                 print_person_and_pets(person_id, con)
