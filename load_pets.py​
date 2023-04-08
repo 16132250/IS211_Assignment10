@@ -1,3 +1,31 @@
+import sqlite3
+def insert_data():
+    try:
+        with sqlite3.connect('pets.db') as con:
+            con.execute("INSERT INTO person VALUES (1, 'James', 'Smith', 41);")
+            con.execute("INSERT INTO person VALUES (2, 'Diana', 'Greene', 23);")
+            con.execute("INSERT INTO person VALUES (3, 'Sara', 'White', 27);")
+            con.execute("INSERT INTO person VALUES (4, 'William', 'Gibson', 23);")
+
+            con.execute("INSERT INTO pet VALUES (1, 'Rusty', 'Dalmation', 4, 1);")
+            con.execute("INSERT INTO pet VALUES (2, 'Bella', 'Alaskan Malamute', 3, 0);")
+            con.execute("INSERT INTO pet VALUES (3, 'Max', 'Cocker Spaniel', 1, 0);")
+            con.execute("INSERT INTO pet VALUES (4, 'Rocky', 'Beagle', 7, 0);")
+            con.execute("INSERT INTO pet VALUES (5, 'Rufus', 'Cocker Spaniel', 1, 0);")
+            con.execute("INSERT INTO pet VALUES (6, 'Spot', 'Bloodhound', 2, 1);")
+
+            con.execute("INSERT INTO person_pet VALUES (1, 1);")
+            con.execute("INSERT INTO person_pet VALUES (1, 2);")
+            con.execute("INSERT INTO person_pet VALUES (2, 3);")
+            con.execute("INSERT INTO person_pet VALUES (2, 4);")
+            con.execute("INSERT INTO person_pet VALUES (3, 5);")
+            con.execute("INSERT INTO person_pet VALUES (4, 6);")
+
+            con.commit()
+            print("Records inserted successfully.")
+
+    except sqlite3.Error as e:
+        print("An error occurred:", e)
 
 if __name__ == "__main__":
-    pass
+    insert_data()

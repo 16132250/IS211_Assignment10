@@ -1,3 +1,34 @@
+import sqlite3
+def print_person_and_pets(person_id, con):
+    person_cursor = con.execute(f"SELECT * FROM person WHERE id={person_id}")
+    person = person_cursor.fetchone()
+    if person:
+        print(f"{person[1]} {person[2]}, age {person[3]}")
+        pet_cursor = con.execute(f""
+                                 f"SELECT pet.name, pet.breed, pet.age, pet.dead "
+                                 f"FROM pet "
+                                 f"JOIN person_pet ON pet.id=person_pet.pet_id "
+                                 f"WHERE person_pet.person_id={person_id}")
+        pets = pet_cursor.fetchall()
+        for pet in pets:
+            if pet[3] == 1:
+                print(f"{person[1]} {person[2]} owned {pet[0]}, a {pet[1]}, that was {pet[2]} years old")
+            else:
+                print(f"{person[1]} {person[2]} owned {pet[0]}, a {pet[1]}, that is {pet[2]} years old")
+
+    else:
+        print("Person not found")
+def get_input():
+    try:
+        with sqlite3.connect('pets.db') as con:
+            while True:
+                person_id = int(input("Enter person's ID number (enter -1 to exit): "))
+                if person_id == -1:
+                    break
+                print_person_and_pets(person_id, con)
+
+    except sqlite3.Error as e:
+        print("An error occurred:", e)
 
 if __name__ == "__main__":
-    pass
+    get_input()
